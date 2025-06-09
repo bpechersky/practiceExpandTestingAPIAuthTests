@@ -13,19 +13,17 @@ import static org.hamcrest.Matchers.*;
 public class OAuthLoginTest {
 
     @Test
-    public void testGoogleOAuthLogin() throws IOException {
-        String oauthToken = GoogleOAuthTokenProvider.getAccessToken();
+    public void testGoogleOAuthUserInfo() throws IOException {
+        String accessToken = GoogleOAuthTokenProvider.getAccessToken();
 
         Response response = RestAssured
                 .given()
-                .baseUri("https://your-api-domain.com")  // Replace with actual API
-                .contentType("application/json")
-                .body("{ \"provider\": \"google\", \"token\": \"" + oauthToken + "\" }")
-                .post("/auth/oauth");
+                .baseUri("https://www.googleapis.com")
+                .header("Authorization", "Bearer " + accessToken)
+                .get("/oauth2/v3/userinfo");
 
         response.then().log().all()
                 .statusCode(200)
-                .body("data.token", notNullValue())
-                .body("data.email", containsString("@gmail.com"));
+                .body("email", containsString("@"));
     }
 }

@@ -6,7 +6,7 @@ import org.testng.annotations.Test;
 
 import static org.hamcrest.Matchers.*;
 
-public class AuthTests extends com.expandtesting.api.TestBase {
+public class AuthTests extends TestBase {
 
     @Test
     public void testLoginReturnsToken() {

@@ -12,7 +12,9 @@ public class GoogleOAuthTokenProvider {
         GoogleCredentials credentials = GoogleCredentials
                 .fromStream(new FileInputStream("src/test/resources/service-account.json"))
                 .createScoped(List.of("https://www.googleapis.com/auth/userinfo.email"))
-                .createScoped(List.of("https://www.googleapis.com/auth/drive"));
+                .createScoped(List.of("https://www.googleapis.com/auth/drive"))
+                .createScoped(List.of("https://www.googleapis.com/auth/cloud-platform"));
+
 
         credentials.refreshIfExpired();
         return credentials.getAccessToken().getTokenValue();  // ✅ Return the token here
